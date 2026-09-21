@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizForge — AI Quiz Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">QUIZFORGE</div>
+    <h1>Turn any document into a quiz</h1>
+    <p>Upload your notes, textbook, or PDF and get AI-generated multiple-choice questions instantly.</p>
+  </div>
+
+  <!-- UPLOAD SCREEN -->
+  <div id="uploadScreen">
+    <div class="upload-zone" id="dropZone">
+      <input type="file" id="fileInput" accept=".pdf,.txt,.md,.csv,.html,.tex">
+      <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 18h16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Drop your file here</h3>
+      <p>PDF, TXT, MD, TEX — up to 200 pages of content</p>
+      <div class="file-badge hidden" id="fileBadge">
+        <span id="fileName"></span>
+        <span class="x" id="removeFile">&times;</span>
+      </div>
+    </div>
+
+    <div class="settings">
+      <div class="field">
+        <label>Number of questions</label>
+        <input type="number" id="numQuestions" value="10" min="3" max="30">
+      </div>
+      <div class="field">
+        <label>Difficulty</label>
+        <select id="difficulty">
+          <option value="easy">Easy — definitions & recall</option>
+          <option value="medium" selected>Medium — understanding</option>
+          <option value="hard">Hard — analysis & application</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generateBtn" disabled>Generate Quiz</button>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loadingScreen" class="hidden">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p id="loadingMsg">Reading your document...</p>
+    </div>
+  </div>
+
+  <!-- ERROR -->
+  <div id="errorScreen" class="hidden">
+    <div class="error-msg">
+      <p id="errorText">Something went wrong.</p>
+      <button onclick="resetAll()">Try again</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="hidden">
+    <div class="quiz-header">
+      <span class="counter" id="qCounter">1 / 10</span>
+      <span class="score-live" id="scoreLive">0 correct</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="question-card">
+      <h2 id="qText"></h2>
+      <div class="options" id="optionsContainer"></div>
+      <div class="explanation hidden" id="explanationBox"></div>
+    </div>
+    <button class="next-btn hidden" id="nextBtn">Next Question</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsScreen" class="hidden">
+    <div class="results-card">
+      <div class="score-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="track" cx="70" cy="70" r="60" fill="none" stroke-width="8"/>
+          <circle class="fill" id="ringFill" cx="70" cy="70" r="60" fill="none" stroke-width="8"
+            stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"/>
+        </svg>
+        <div class="score-number">
+          <span class="big" id="scorePct">0%</span>
+          <span class="label" id="scoreDetail">0/0</span>
+        </div>
+      </div>
+      <h2 id="resultTitle">Nice work!</h2>
+      <p class="subtitle" id="resultSubtitle">Here's how you did.</p>
+      <div class="results-actions">
+        <button class="btn-primary" onclick="retakeQuiz()">Retake Quiz</button>
+        <button class="btn-secondary" id="toggleReview">Review Answers</button>
+        <button class="btn-secondary" onclick="resetAll()">New File</button>
+      </div>
+    </div>
+    <div class="review-list hidden" id="reviewList"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

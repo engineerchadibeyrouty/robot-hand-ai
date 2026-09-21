@@ -1,0 +1,8 @@
+*.pt
+scripts/runs/
+scripts/age_net.caffemodel
+dataset/images/
+scripts/weights/
+detections.db
+__pycache__/
+scripts/mcq-generator/.env

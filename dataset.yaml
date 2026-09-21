@@ -1,0 +1,15 @@
+path: D:/robot-hand-ai/robot-hand-ai/dataset
+train: images/train
+val: images/train
+names:
+  0: pen
+  1: cup
+  2: smartphone
+  3: car key
+  4: bottle
+  5: wallet
+  6: glasses
+  7: hookah tong
+  8: watch
+  9: hair tie
+  10: lighter
